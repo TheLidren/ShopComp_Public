@@ -1,0 +1,33 @@
+﻿@model             LoginViewModel
+@{
+    Layout = "_Layout2";
+}
+<main class="form-signin w-50 m-auto mt-5">
+    <div class="text-center">
+        <div class="m-auto pt-4">
+            <img src="~/img//account.png" width="80" height="80">
+            <h1 class="h3 mb-3 mt-2 fw-normal">Пожалуйста, войдите</h1>
+        </div>
+    </div>
+    <form method="post" asp-controller="Account" asp-action="Login"
+          asp-route-returnUrl="@Model.ReturnUrl">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-floating">
+            <input type="email" asp-for="Email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Ваш email</label>
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="form-floating">
+            <input type="password" asp-for="Password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Пароль</label>
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <button class="w-100 mt-4 mb-4 btn btn-lg btn-primary" type="submit">Авторизация</button>
+        </div>
+        <a class="w-100 btn btn-lg btn-primary" href="~/Account/Register">Регистрация</a>
+        <a class="mt-2" asp-controller="Account" asp-action="ForgotPassword"> Забыли пароль?</a>
+        <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2020</p>
+    </form>
+</main>
+

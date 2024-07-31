@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ShopComp.Models.Cart>
+@{
+    Layout = "_Layout2";
+}
+<link href="~/css/MoreDetails.css" rel="stylesheet" />
+<div class="container mt-4">
+    <p><b>ФИО: </b>@ViewBag.User</p>
+    <p><b>Номер телефона: </b>@ViewBag.Phone</p>
+    <p><b>Страна: </b>@ViewBag.Country</p>
+    <p><b>Кредитная карта: </b>@ViewBag.CreditCard</p>
+    <p><b>Первый адрес: </b>@ViewBag.Line1</p>
+    @if (ViewBag.Line2 == null)
+    {
+        <p><b>Второй адрес: </b>не указан</p>
+    }
+    else
+    {
+        <p><b>Второй адрес: </b>@ViewBag.Line2</p>
+    }
+
+    @if (ViewBag.GiftWrap)
+    {
+        <p><b>Рассрочка: </b>Да</p>
+    }
+    else
+    {
+        <p><b>Рассрочка: </b>Нет</p>
+    }
+    @if (ViewBag.Submitted)
+    {
+        <p><b>Отправлен: </b>Да</p>
+    }
+    else
+    {
+        <p><b>Отправлен: </b>Нет</p>
+    }
+    @if (ViewBag.Condition)
+    {
+        <p><b>Статус: </b>выполнен</p>
+    }
+    else
+    {
+        <p><b>Статус: </b>выполняется</p>
+    }
+    <table class="m-3 table table-bordered">
+        <tr>
+            <th>Название товара</th>
+            <th>Категория</th>
+            <th>Цена</th>
+            <th>Количество</th>
+            <th>Итоговая цена</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Tovar.Tittle</td>
+                <td>@item.Tovar.Categories.Tittle</td>
+                <td>@item.Tovar.Price</td>
+                <td>@item.Quantity</td>
+                <td>@(item.Tovar.Price * item.Quantity) руб</td>
+                <td align="center"><a href="~/Tovars/MoreDetails/@item.Tovar.Id" class="btn btn-info">Товар</a></td>
+            </tr>
+        }
+    </table>
+</div>
+

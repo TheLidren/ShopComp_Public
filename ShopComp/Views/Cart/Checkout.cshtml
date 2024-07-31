@@ -1,0 +1,46 @@
+﻿@model ShopComp.Models.OrderDetails
+@{
+    Layout = "_Layout2";
+}
+<div class="container mt-4">
+    <h2>Оформить заказ сейчас</h2>
+    <p>Пожалуйста введи ваши контактные данные для оформления заказа!</p>
+    <form>
+        <div class="form-row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h3>Данные</h3>
+            <div class="form-group">
+            </div>
+            <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+                <label asp-for="Line1" class="mb-2 control-label text-dark">Первый адрес</label>
+                <input type="text" asp-for="Line1" class="form-control" />
+                <span asp-validation-for="Line1"></span>
+            </div>
+            <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+                <label asp-for="Line2" class="mb-2 control-label text-dark">Второй адрес</label>
+                <input type="text" asp-for="Line2" class="form-control" />
+                <span asp-validation-for="Line2"></span>
+            </div>
+            <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+                <label asp-for="Phone" class="mb-2 control-label text-dark">Номер телефона</label>
+                <input type="text" asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone"></span>
+            </div>
+            <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+                <label asp-for="Country" class="mb-2 control-label text-dark">Страна</label>
+                <input type="text" asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country"></span>
+            </div>
+            <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+                <label asp-for="CreditCard" class="mb-2 control-label text-dark">Номер карты</label>
+                <input type="text" asp-for="CreditCard" class="form-control" />
+                <span asp-validation-for="CreditCard"></span>
+            </div>
+            <h3>Опции</h3>
+            <input type="checkbox" asp-for="GiftWrap" />
+            <label asp-for="GiftWrap" class="ml-2 control-label text-dark">Оформить заказ в рассрочку на 6 месяцев?</label>
+            <br /><br />
+            <input class="mb-4 btn btn-primary" asp-controller="Cart" asp-action="Checkout" formmethod="post" type="submit" value="Обработать заказ" />
+        </div>
+    </form>
+</div>

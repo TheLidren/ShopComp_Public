@@ -1,0 +1,12 @@
+﻿@media print {
+    body {
+        visibility: hidden;
+    }
+    button{
+        visibility:hidden;
+    }
+
+    .print {
+        visibility: visible
+    }
+}

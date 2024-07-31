@@ -1,0 +1,56 @@
+﻿@model             EditUserViewModel
+@{
+    Layout = "_Layout2";
+}
+<form>
+    <div class="form-row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <input type="hidden" asp-for="Id" />
+        </div>
+        <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+            <label asp-for="Name" class="mb-2 control-label text-dark">Имя</label>
+            <input type="text" asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+            <label asp-for="Surname" class="mb-2 control-label text-dark">Фамилия</label>
+            <input type="text" asp-for="Surname" class="form-control" />
+            <span asp-validation-for="Surname"></span>
+        </div>
+        <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+            <label asp-for="Patronymic" class="mb-2 control-label text-dark">Отчество</label>
+            <input type="text" asp-for="Patronymic" class="form-control" />
+            <span asp-validation-for="Patronymic"></span>
+        </div>
+        <div class="dropdown m-3">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Выбрать
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li>
+                    <input type="submit" asp-action="EditUser" asp-controller="Account" formmethod="post" class="dropdown-item" value="Сохранить" />
+                </li>
+                <li>
+                    <input type="submit" asp-action="DeleteUser" asp-controller="Account" formmethod="post" class="dropdown-item" value="Удалить аккаунт" />
+                </li>
+            </ul>
+            <span class="m-3">
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Действие
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                        <input type="submit" asp-action="ChangeLogin" asp-controller="Account" formmethod="get" class="dropdown-item" value="Изменить логин" />
+                    </li>
+                    <li>
+                        <input type="submit" asp-action="ChangePassword" asp-controller="Account" formmethod="get" class="dropdown-item" value="Изменить пароль" />
+                    </li>
+                    <li>
+                        <input type="submit" asp-action="ForgotPassword" asp-controller="Account" formmethod="get" class="dropdown-item" value="Сбросить пароль" />
+                    </li>
+                </ul>
+            </span>
+        </div>
+    </div>
+</form>

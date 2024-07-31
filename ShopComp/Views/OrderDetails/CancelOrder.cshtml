@@ -1,0 +1,18 @@
+﻿@model ShopComp.Models.OrderDetails
+@{
+    Layout = "_Layout2";
+}
+<form>
+    <div class="form-row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <input type="hidden" asp-for="Id" />
+        </div>
+        <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+            <label asp-for="Review" class="mb-2 control-label text-dark">Указать причину</label>
+            <textarea class="form-control" asp-for="Review" rows="3" placeholder="Подробное описание" pattern="^[а-яА-ЯёЁa-zA-Z0-9\s\-,.:]+$" maxlength="500" title="Неверный формат ввода"></textarea>
+            <span asp-validation-for="Review"></span>
+        </div>
+        <input type="submit" asp-action="SentReview" asp-controller="OrderDetails" formmethod="post" class="m-3 btn btn-primary mt-3" value="Отправить" />
+    </div>
+</form>

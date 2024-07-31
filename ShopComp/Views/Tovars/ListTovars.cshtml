@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ShopComp.Models.Tovar>
+@{
+    Layout = "_Layout2";
+}
+<style>
+    td{
+        font-size: 12px;
+    }
+    a{
+        text-decoration: none;
+        color:black;
+    }
+</style>
+<br />
+<table class="m-3 table table-bordered">
+    <tr>
+        <th><a asp-action="ListTovars" asp-route-sortOrder="@ViewBag.TittleSort">Название</a></th>
+        <th width="10%"><a asp-action="ListTovars" asp-route-sortOrder="@ViewBag.CategorySort">Категории</a></th>
+        <th width="50%">Описание</th>
+        <th><a asp-action="ListTovars" asp-route-sortOrder="@ViewBag.ColSort">Количество</a></th>
+        <th><a asp-action="ListTovars" asp-route-sortOrder="@ViewBag.PriceSort">Цена</a></th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)    
+    {
+<tr>
+    <td>@item.Tittle</td>
+    <td>@item.Categories.Tittle</td>
+    <td>@item.ShortDesc</td>
+    <td>@item.Amount</td>
+    <td>@item.Price руб</td>
+    <td>
+        <form asp-action="DeleteTovar" asp-controller="Tovars" asp-route-id="@item.Id" method="post" class="text-center">
+            <a class="btn btn-sm btn-primary" asp-action="EditTovar" asp-controller="Tovars" asp-route-id="@item.Id">Изменить</a>
+            <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+        </form>
+    </td>
+</tr>
+    }
+</table>

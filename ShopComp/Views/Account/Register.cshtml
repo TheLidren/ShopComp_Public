@@ -1,0 +1,46 @@
+﻿@model             RegisterViewModel
+@{
+    Layout = "_Layout2";
+}
+<div class="m-5">
+    <h2>Регистрация нового пользователя</h2>
+    <form method="post" asp-controller="Account" asp-action="Register">
+        <div class="form-row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="m-3 form-group col-md-6" data-valmsg-summary="true">
+                <label class="mb-2 control-label text-dark" asp-for="Name">Имя</label>
+                <input class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="m-3 form-group col-md-6" data-valmsg-summary="true">
+                <label class="mb-2 control-label text-dark" asp-for="Surname">Фамилия</label>
+                <input class="form-control" asp-for="Surname" />
+                <span asp-validation-for="Surname"></span>
+            </div>
+            <div class="m-3 form-group col-md-6" data-valmsg-summary="true">
+                <label class="mb-2 control-label text-dark" asp-for="Patronymic">Отчество</label>
+                <input class="form-control" asp-for="Patronymic" />
+                <span asp-validation-for="Patronymic"></span>
+            </div>
+            <div class="m-3 form-group col-md-6" data-valmsg-summary="true">
+                <label class="mb-2 control-label text-dark" asp-for="Email">Логин</label>
+                <input type="email" class="form-control" asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="m-3 form-group col-md-6" data-valmsg-summary="true">
+                <label class="mb-2 control-label text-dark" asp-for="Password">Пароль</label>
+                <input type="password" class="form-control" asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="m-3 form-group col-md-6" data-valmsg-summary="true">
+                <label class="mb-2 control-label text-dark" asp-for="PasswordConfirm">Подтвердить пароль</label>
+                <input type="password" class="form-control" asp-for="PasswordConfirm" />
+                <span asp-validation-for="PasswordConfirm"></span>
+            </div>
+            <div>
+                <input type="submit" class="m-3 btn btn-primary mt-3" value="Зарегестрироваться" />
+            </div>
+        </div>
+    </form>
+</div>
+

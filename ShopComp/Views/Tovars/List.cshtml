@@ -1,0 +1,156 @@
+﻿@model             IndexViewModel
+@{
+    Layout = "_Layout";
+}
+<div class="container-fluid mt-lg-5">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="form-inline form-group">
+                <form method="get">
+                    <label class="control-label mb-2">Название: </label>
+                    <input name="name" value="@ViewBag.Name" class="form-control" />
+                    <label class="control-label mb-2">Компьютеры: </label>
+                    <select name="category" class="form-select">
+                        @if (ViewBag.CategoryTittle != null)
+                        {
+                            <option value=null>Все</option>
+                            @foreach (var blah in ViewBag.CategoryTittle)
+                            {
+                                <option selected value=@blah.Id>@blah.Tittle</option>
+                            }
+                        }
+                        else
+                        {
+                            <option selected value=null>Все</option>
+                        }
+                        @foreach (var blah in ViewBag.Category)
+                        {
+
+                            <option value=@blah.Id>@blah.Tittle</option>
+                        }
+                    </select>
+                    <label class="control-label mb-2">Цена: </label>
+                    <input name="minPrice" type="number" class="form-control mb-2" value="@ViewBag.MinPrice" placeholder="Минимальная" min="0" max="100000" />
+                    <input name="maxPrice" type="number" class="form-control mb-2" value="@ViewBag.MaxPrice" placeholder="Максимальная" min="0" max="100000" />
+                    <label class="control-label mb-2">Сортировка: </label>
+                    <select name="sort" class="form-select">
+                        @if (ViewBag.Sort == 2 || ViewBag.Sort == 0)
+                        {
+                            <option value=2 selected>По убыванию цены</option>
+                            <option value=1>По возрастанию цены</option>
+                            <option value=3>По популярности</option>
+                        }
+                        else if (ViewBag.Sort == 3)
+                        {
+                            <option value=2>По убыванию цены</option>
+                            <option value=1>По возрастанию цены</option>
+                            <option value=3 selected>По популярности</option>
+                        }
+                        else if (ViewBag.Sort == 1)
+                        {
+                            <option value=2>По убыванию цены</option>
+                            <option value=1 selected>По возрастанию цены</option>
+                            <option value=3>По популярности</option>
+                        }
+                    </select>
+                    <input class="mt-3 mb-3 w-100 btn btn-warning" type="submit" value="Фильтр" />
+                </form>
+                <h3 class="text-center">Реклама</h3>
+                <a href="https://en.wikipedia.org/wiki/Fast_food_restaurant" target="_blank"><img src="https://koblevo-info.com/wp-content/uploads/2021/04/menyu-v-shaurma-na-palm-avenyu-v-koblevo-foto.jpg" class="h-100 w-100" alt="Alternate Text" /></a>
+                <a href="https://ru.wikipedia.org/wiki/Nexta" target="_blank"><img src="https://www.article19.org/wp-content/uploads/2020/10/Wire-2020-10-23-at-10-59-37-1500x849.png" class="h-100 w-100" alt="Alternate Text" /></a>
+            </div>
+        </div>
+            <div class="col-lg-10">
+                <div class="row">
+                    @foreach (var b in Model.Tovars)
+                    {
+                        <div class="col-lg-3">
+                            <a href="~/Tovars/MoreDetails/@b.Id"><img class="img-thumbnail w-100" style="height:80%!important; max-height:400px;" src="@b.Img" alt="@b.Tittle" /></a>
+                        </div>
+                        <div class="col-lg-5">
+                            <h2><a href="~/Tovars/MoreDetails/@b.Id" class="idtovar">@b.Tittle</a></h2>
+                            <p data-bs-toggle="tooltip" data-bs-placement="bottom" style="color:#E67e00; cursor:pointer;" title="Условия рассрочки зависят от региона доставки, срока и способа доставки">Рассрочка до 6 месяцев</p>
+                            <p>@b.ShortDesc</p>
+                        </div>
+                        <div class="col-lg-1" style="width:10%">
+                            <h4>Цена: </h4>
+                            <p>@b.Price.ToString("# руб")</p>
+                        </div>
+                        <div class="col-lg-2">
+                            @if (b.Amount <= 0)
+                            {
+                                <p class="mb-4 w-100 btn btn-danger">Нет в наличии</p>
+                            }
+                            else
+                            {
+                                @if (ViewContext.HttpContext.User.IsInRole("user"))
+                                {
+                                    <a class="mb-4 w-100 btn btn-success" asp-controller="Cart" asp-action="Buy" asp-route-id="@b.Id">Добавить в корзину</a>
+                                }
+                                else
+                                {
+                                    <p class="mb-4 w-100 btn btn-success">Есть в наличии</p>
+
+                                }
+                            }
+                            @if (ViewContext.HttpContext.User.IsInRole("admin"))
+                            {
+                        <form method="post" asp-controller="Tovars" asp-action="DeleteTovar" asp-route-id="@b.Id">
+                            <a class="btn btn-primary" href="~/Tovars/EditTovar/@b.Id">Изменить</a>
+                            <button class="btn btn-danger">Удалить</button>
+                        </form>
+                            }
+                        </div>
+                    }
+                </div>
+            <div class="mb-3">
+                <form method="get">
+                    <input name="name" type="hidden" value="@ViewBag.Name" class="form-control" />
+                    <input name="minPrice" type="hidden" class="form-control mb-2" value="@ViewBag.MinPrice" />
+                    <input name="maxPrice" type="hidden" class="form-control mb-2" value="@ViewBag.MaxPrice" />
+                    @if (ViewBag.CategoryTittle != null)
+                    {
+                        @foreach (var blah in ViewBag.CategoryTittle)
+                        {
+                            <input name="category" type="hidden" value=@blah.Id />
+                        }
+                    }
+                    @if (ViewBag.Sort == 2 || ViewBag.Sort == 0)
+                    {
+                        <input name="sort" type="hidden" value="2" />
+                    }
+                    else if (ViewBag.Sort == 3)
+                    {
+                        <input name="sort" type="hidden" value="3" />
+                    }
+                    else if (ViewBag.Sort == 1)
+                    {
+                        <input name="sort" type="hidden" value="1" />
+                    }
+                    @if (Model.PageViewModel.HasPreviousPage)
+                    {
+                        <input name="page" type="hidden" value="@(Model.PageViewModel.PageNumber - 1)" />
+                        <button asp-action="List"
+                                asp-route-name="@(Model.FilterViewModel.SelectedTittle)"
+                                asp-route-category="@(Model.FilterViewModel.SelectedCategory)"
+                                class="btn  btn-outline-dark">
+                            <i class="glyphicon glyphicon-chevron-left"></i>
+                            Назад
+                        </button>
+                    }
+                    @if (Model.PageViewModel.HasNextPage)
+                    {
+                        <input name="page" type="hidden" value="@(Model.PageViewModel.PageNumber + 1)" />
+                        <button asp-action="List"
+                                asp-route-name="@(Model.FilterViewModel.SelectedTittle)"
+                                asp-route-category="@(Model.FilterViewModel.SelectedCategory)"
+                                class="btn btn-outline-dark">
+                            Вперед
+                            <i class="glyphicon glyphicon-chevron-right"></i>
+                        </button>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

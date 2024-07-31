@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<div class="m-5">
+    <h2>Добавить категорию</h2>
+    <form method="post" asp-controller="Category" asp-action="AddCategory">
+        <div class="form-row">
+            <div class="m-3 form-group col-md-6">
+                <label for="Tittle">Название</label>
+                <input type="text" class="form-control" name="Tittle" placeholder="Название категории" required pattern="^[а-яА-ЯёЁa-zA-Z0-9\s\-]+$" maxlength="100" title="Неверный формат ввода">
+            </div>
+            <div class="m-3 form-group col-md-6">
+                <label for="Desc">Описание</label>
+                <textarea class="form-control" name="Desc" rows="3" placeholder="Описание" required pattern="^[а-яА-ЯёЁa-zA-Z0-9\s\-,.:]+$" maxlength="500" title="Неверный формат ввода"></textarea>
+            </div>
+            <input type="submit" class="m-3 btn btn-primary mt-3" value="Добавить" />
+        </div>
+    </form>
+</div>

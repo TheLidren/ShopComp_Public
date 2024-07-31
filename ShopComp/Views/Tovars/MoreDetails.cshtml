@@ -1,0 +1,54 @@
+﻿@model ShopComp.Models.Tovar
+@{
+    Layout = "_Layout";
+}
+<link href="~/css/MoreDetails.css" rel="stylesheet" />
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-4 print">
+            <img class="img-thumbnail " src="@Model.Img" alt="@Model.Tittle" />
+        </div>
+        <div class="col-lg-5 print">
+            <button class="m-3 btn btn-secondary mt-3" onclick="window.print()">Печать</button>
+            <h2>@Model.Tittle</h2>
+            <h4>Категория: </h4>
+            @foreach (var blah in ViewBag.CategoryTittle)
+            {
+                <p>@blah.Tittle</p>
+            }
+            <h4>Информация о товаре: </h4>
+            <p>@Model.LongDesc</p>
+            <p><b>Цена: </b>@Model.Price.ToString("# руб")</p>
+        </div>
+        @if (ViewContext.HttpContext.User.IsInRole("user"))
+        {
+            <div class="offset-4 col-5">
+                <form method="post" asp-controller="Cart" asp-action="Buy" asp-route-id="@Model.Id">
+                    <div class="form-row">
+                        @if (Model.Amount > 0)
+                        {
+                            <label class="mb-2">Выберите количество</label>
+                            <input type="number" min="1" max="@Model.Amount" class="form-control" name="count" required>
+                            <small class="text-danger">На складе @Model.Amount товаров </small>
+                        }
+                    </div>
+                    @if (Model.Amount <= 0)
+                    {
+                        <p class="mb-3 mt-2 btn btn-danger">Нет в наличии</p>
+                    }
+                    else
+                    {
+                        <input type="submit" class="btn btn-primary mb-3 mt-2" value="Добавить в корзину" />
+                    }
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="offset-4 col-5">
+                <p class="mb-3 mt-2 btn btn-primary">Для добавления в корзину войдите, как пользователь.</p>
+            </div>
+        }
+            </div>
+        </div>
+

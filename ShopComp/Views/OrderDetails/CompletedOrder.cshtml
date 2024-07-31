@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ShopComp.Models.OrderDetails>
+@{
+    Layout = "_Layout2";
+}
+<br />
+<table class="m-3 table table-bordered text-center">
+    <tr>
+        <th width="10%">Номер заказа</th>
+        <th width="10%">Цена</th>
+        <th width="20%">Статус</th>
+        <th>Сообщение</th>
+        <th width="20%"></th>
+    </tr>
+    @foreach (var order in Model)
+    {
+<tr>
+    <td>@order.Id</td>
+    <td>@order.Price</td>
+    <td>
+        @if (order.Cancel)
+        {
+            <p>Заказ был отменён</p>
+        }
+        else
+        {
+            <p>Заказ был выполнен</p>
+        }
+    </td>
+    <td align="left">@order.Review</td>
+    <td>
+        <form asp-action="DeleteOrder" asp-controller="OrderDetails" asp-route-id="@order.Id" method="post" class="text-center">
+            <a asp-controller="OrderDetails" asp-action="MoreDetails" asp-route-id="@order.Id">Подробнее</a>
+            <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+        </form>
+    </td>
+</tr>
+    }
+</table>

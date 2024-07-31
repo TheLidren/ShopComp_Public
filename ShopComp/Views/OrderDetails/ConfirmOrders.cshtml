@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ShopComp.Models.OrderDetails>
+@{
+    Layout = "_Layout2";
+}
+<table class="m-5 table table-bordered">
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Номер телефона</th>
+        <th>Цена заказа</th>
+        <th>Страна</th>
+        <th>Рассрочка?</th>
+    </tr>
+    @foreach (var order in Model)
+    {
+    <tr>
+        <td>@order.Users.Name</td>
+        <td>@order.Users.Surname</td>
+        <td>@order.Phone</td>
+        <td>@order.Price</td>
+        <td>@order.Country</td>
+        @if (order.GiftWrap)
+        {
+            <td>Да</td>
+        }
+        else
+        {
+            <td>Нет</td>
+        }
+        <td>
+            <form asp-action="ConfirmSentOrder" asp-controller="OrderDetails" asp-route-id="@order.Id" method="post" class="text-center">
+                @if (!order.Cancel)
+                {
+                    <button type="submit" class="btn btn-sm btn-success">Отправить</button>
+                }
+                <a asp-controller="OrderDetails" asp-action="MoreDetails" asp-route-id="@order.Id">Подробнее</a>
+            </form>
+        </td>
+    </tr>
+    }
+</table>

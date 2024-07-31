@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ShopComp.Models.Cart>
+@{
+    Layout = "_Layout";
+}
+<div class="container-fluid m-5">
+    <table class="mb-4">
+        @{
+            int id = 0;
+            @foreach (var blah in ViewBag.OrderDetailsId)
+            {
+        <tr>
+            @if (blah.OrderDetailsID != id)
+            {
+                id = blah.OrderDetailsID;
+                @if (blah.Submitted)
+                {
+                    <td>
+                        <form method="post" asp-controller="OrderDetails" asp-action="ConfirmReceiptOrder" asp-route-id="@blah.OrderDetailsID">
+                            <button class="mr-4 ml-4 w-100 btn btn-sm btn-success">Подтвердить @blah.OrderDetailsID заказ</button>
+                        </form>
+                    </td>
+                }
+                <td>
+                    <form method="post" asp-controller="OrderDetails" asp-action="CancelOrder" asp-route-id="@blah.OrderDetailsID">
+                        <button class="mr-4 ml-4 w-100 btn btn-sm btn-danger">Отменить @blah.OrderDetailsID заказ</button>
+                    </form>
+                </td>
+                <td>
+                    <h4 class="fst-italic mr-4" style="margin-left: 10px">Сумма заказа: @Model.Where(p => p.OrderDetailsID == blah.OrderDetailsID).Sum(item => item.Tovar.Price * item.Quantity).</h4>
+                </td>
+            }
+        </tr>
+            }
+        }
+    </table>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <div class="col-4">
+            <a href="~/Tovars/MoreDetails/@item.Tovar.Id"><img class="img-thumbnail w-50 h-25" src="@item.Tovar.Img" alt="@item.Tovar.Tittle" /></a>
+            <p class="fs-2">
+                <a href="~/Tovars/MoreDetails/@item.Tovar.Id" class="idtovar">@item.Tovar.Tittle</a>
+            </p>
+                <p class="w-75">@item.Tovar.ShortDesc</p>
+                <table class="table table-striped w-75">
+                    <tr>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Итоговая цена</th>
+                    </tr>
+                    <tr>
+                        <td>@item.Tovar.Price.ToString("# руб")</td>
+                        <td>@item.Quantity</td>
+                        <td>@(item.Tovar.Price * item.Quantity) руб</td>
+                    </tr>
+                </table>
+        </div>
+        }
+    </div>
+</div>
+

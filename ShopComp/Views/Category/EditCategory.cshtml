@@ -1,0 +1,27 @@
+﻿@model ShopComp.Models.Category
+@{
+    Layout = "_Layout2";
+}
+<div class="m-5">
+    <form asp-controller="Category" asp-action="EditCategory" method="post">
+        <div class="form-row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Id" />
+            </div>
+            <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+                <label asp-for="Tittle" class="mb-2 control-label text-dark">Название категории</label>
+                <input type="text" asp-for="Tittle" class="form-control" placeholder="Название" />
+                <span asp-validation-for="Tittle"></span>
+            </div>
+            <div class="m-3 form-group col-md-6 text-danger" data-valmsg-summary="true">
+                <label asp-for="Desc" class="mb-2 control-label text-dark">Описание</label>
+                <textarea class="form-control" asp-for="Desc" rows="3" placeholder="Описание">@Model.Desc</textarea>
+                <span asp-validation-for="Desc"></span>
+            </div>
+            <div class="dropdown m-3">
+                <input type="submit" class="m-3 btn btn-primary mt-3" value="Сохранить" />
+            </div>
+        </div>
+    </form>
+</div>

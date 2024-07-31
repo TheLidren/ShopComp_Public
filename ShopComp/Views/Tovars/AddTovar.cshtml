@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ShopComp.Models.Category>
+@{
+    Layout = "_Layout2";
+
+}
+<div class="m-5">
+    <h2>Добавить товар</h2>
+    <form method="post" asp-controller="Tovars" asp-action="AddTovar">
+        <div class="form-row">
+            <div class="m-3 form-group col-md-6">
+                <label class="mb-2" for="Tittle">Название</label>
+                <input type="text" class="form-control" name="Tittle" placeholder="Название устройства" required pattern="^[а-яА-ЯёЁa-zA-Z0-9\s\-]+$" maxlength="50" title="Неверный формат ввода">
+            </div>
+            <div class="m-3 form-group col-md-6">
+                <label class="mb-2" for="shortDesc">Краткое описание</label>
+                <textarea type="text" maxlength="200" class="form-control" name="shortDesc" placeholder="Краткое описание" required pattern="^[а-яА-ЯёЁa-zA-Z0-9\s\-,.:]+$" max="100" title="Неверный формат ввода"></textarea>
+            </div>
+            <div class="m-3 form-group col-md-6">
+                <label class="mb-2" for="LongDesc">Описание</label>
+                <textarea class="form-control" name="LongDesc" rows="3" placeholder="Подробное описание" required pattern="^[а-яА-ЯёЁa-zA-Z0-9\s\-,.:]+$" maxlength="500" title="Неверный формат ввода"></textarea>
+            </div>
+            <div class="m-3 form-group col-md-6">
+                <label class="mb-2" for="Img">Вставьте картинку</label>
+                <input type="url" class="form-control" name="Img" placeholder="Введите url" required>
+            </div>
+            <div class="m-3 form-group col-md-6 w-25">
+                <label class="mb-2" for="Price">Цена</label>
+                <input type="number" min="0" max="100000" class="form-control" placeholder="Цена" name="Price" required>
+            </div>
+            <div class="m-3 form-group col-md-6 w-25">
+                <label class="mb-2" for="Amount">Количество</label>
+                <input type="number" min="0" max="100000" class="form-control" placeholder="Количество" name="Amount" required>
+            </div>
+            <div class="m-3 form-group col-md-6">
+                <label class="mb-2" for="Categories">Выберите категорию</label>
+                <br />
+                <select class="form-select" name="CategoriesId" required>
+                    @foreach (var blah in Model)
+                    {
+                        <option value=@blah.Id>@blah.Tittle</option>
+                    }
+                </select>
+            </div>
+            <input type="submit" class="m-3 btn btn-primary mt-3" value="Добавить" />
+        </div>
+    </form>
+</div>
