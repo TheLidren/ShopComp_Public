@@ -25,9 +25,15 @@
 
 <a name="install"></a>
 Веб-сайт должен быть развёрнут в сети Интернет.
-Для корректной работы также необходимо указать корректную строку подключения к БД MySql
-<!-- тут необходимо указать скрин appsettings.json -->
+Требования к  программному обеспечению:
+1. пакет Microsoft NET-SDK 8.0;
+2. веб-сервер Nginx (Apache, IIS);
+3. СУБД «MySQL» 6.0 и выше.
+   
+Для корректной работы необходимо указать корректную строку подключения для работы с базой данных MySql `ShopComp/appsettings.json`.
+
 <img src="ShopComp/Images/ConnString.png" alt="ConnString" height=100 />
+
 Технологии и компоненты: Asp.Net Core, Entity Framework Core, C#, Bootstrap, HTML5, CSS3, JavaScript, MailKit
 
 #### Применение:
